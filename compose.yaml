@@ -1,0 +1,113 @@
+name: "project-tracker"
+
+volumes:
+  minio_data:
+
+services:
+  app: &app
+    image: "${COMPOSE_PROJECT_NAME}"
+    entrypoint: /cnb/lifecycle/launcher
+    volumes:
+      - ./:/workspace
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.local
+    depends_on:
+      postgres:
+          condition: service_healthy
+      redis:
+          condition: service_started
+
+  postgres:
+    # TODO: currently, `postgres:latest` doesn't work
+    # need to check about `postgis` extension enabled
+    image: postgis/postgis:latest
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [
+        "CMD-SHELL",
+        "pg_isready -h postgres -t 5 -U ${COMPOSE_PROJECT_NAME}-user || false"
+      ]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+    environment:
+      - POSTGRES_DB=${COMPOSE_PROJECT_NAME}-dev
+      - POSTGRES_USER=${COMPOSE_PROJECT_NAME}-user
+      - POSTGRES_PASSWORD=manager
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  # ###########################################################################
+  # MinIO Storage
+  # minio:9001 - Server
+  # minio:9000 - UI
+
+  # We preferred to choose `Minio` instead of `Localstack` due to the fact
+  # that `localstack` does not support saving files after restarting the docker
+  # container for the free version.
+  # https://github.com/localstack/localstack/issues/6281#issuecomment-1169731265
+  # ###########################################################################
+  minio:
+    image: minio/minio:latest
+    command: server --address 0.0.0.0:9001 --console-address 0.0.0.0:9000 /data
+    environment:
+      - MINIO_ROOT_USER=root
+      - MINIO_ROOT_PASSWORD=rootroot
+      # Set `MINIO_DOMAIN` to enable virtual-hosted-style for minio.
+      # https://min.io/docs/minio/linux/administration/object-management.html#id1
+      - MINIO_DOMAIN=s3.minio.localhost
+    ports:
+      - "9001:9001"
+      - "9000:9000"
+    volumes:
+      - minio_data:/data
+    networks:
+      default:
+        aliases:
+          # Set alias that suitable for virtual-hosted-style URL structure:
+          # `https://<bucket>.s3.<region>.amazonaws.com/<key>
+          # We need apply this style for local S3 storage because path-style
+          # URLs will be discontinued in the future, and we want to make
+          # consistent URLs for uploading and downloading files.
+          # https://docs.aws.amazon.com/AmazonS3/latest/userguide/VirtualHosting.html
+          - ${COMPOSE_PROJECT_NAME}-files.s3.minio.localhost
+
+  # ###########################################################################
+  # Service for creating bucket in minio service
+  # ###########################################################################
+  minio-create-bucket:
+    image: minio/mc:latest
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc alias set s3minio http://minio:9001 root rootroot;
+      /usr/bin/mc mb s3minio/${COMPOSE_PROJECT_NAME}-files;
+      /usr/bin/mc anonymous set public s3minio/${COMPOSE_PROJECT_NAME}-files;
+      exit 0;
+      "
+
+  # An email and SMTP testing tool with API for developers
+  # https://mailpit.axllent.org/docs/install/docker/
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+      - 8025:8025
+      - 1025:1025
+    environment:
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+
+  web: &web
+    <<: *app
+    ports:
+      - "8000:8000"
+    entrypoint: runserver_local
+
+  celery: &celery
+    <<: *app
+    entrypoint: celery_debug

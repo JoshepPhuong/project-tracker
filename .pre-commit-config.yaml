@@ -1,0 +1,85 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-yaml
+      - id: check-toml
+      - id: check-json
+        exclude: ".*\\.vscode/"
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: detect-aws-credentials
+        args: [--allow-missing-credentials]
+      - id: debug-statements
+      - id: check-merge-conflict
+      - id: detect-private-key
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.13
+    hooks:
+      - id: ruff
+        args: [ --fix ]
+      - id: ruff-format
+
+  - repo: https://github.com/streetsidesoftware/cspell-cli
+    rev: v9.4.0
+    hooks:
+      - id: cspell
+
+  - repo: https://github.com/asottile/add-trailing-comma
+    rev: v4.0.0
+    hooks:
+      - id: add-trailing-comma
+
+  - repo: https://github.com/jorisroovers/gitlint
+    rev:  v0.19.1
+    hooks:
+     - id: gitlint
+     - id: gitlint-ci
+       # Need to specify commits range since by default gitlint checks only
+       # latest commit. `BASE_BRANCH` will be passed via github action.
+       # Ignore branch rule since GitHub actions create it's own merge branch.
+       # Ignore WIP/wip rule.
+       entry: |
+        bash -c 'gitlint --commits "${BASE_BRANCH}..HEAD" -c general.ignore=UC1 -c ignore-by-title.regex="^\[automated-commit]"'
+
+  - repo: https://github.com/rtts/djhtml
+    rev: 3.0.10
+    hooks:
+      - id: djhtml
+        args: [ "--tabwidth=2" ]
+      - id: djcss
+        args: [ "--tabwidth=2" ]
+      - id: djjs
+        args: [ "--tabwidth=2" ]
+
+  - repo: https://github.com/pycqa/docformatter
+    rev: "v1.7.7"
+    hooks:
+      - id: docformatter
+
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.47.0
+    hooks:
+      - id: markdownlint
+        args: [
+          "--fix",
+        ]
+
+  - repo: local
+    hooks:
+      - id: check_new_migrations
+        name: check for new migrations
+        entry: inv django.check-new-migrations
+        language: system
+        pass_filenames: false
+        types: [ file ]
+        stages: [ pre-push ]
+
+      - id: tests
+        name: run tests
+        entry: inv pytest.run --params="--numprocesses auto --create-db"
+        language: system
+        pass_filenames: false
+        types: [ python ]
+        stages: [ pre-push ]
