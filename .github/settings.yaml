@@ -1,0 +1,10 @@
+repository:
+  description: Django for Project Tracker
+
+labels:
+  - name: automated-pr
+    color: 1316F2
+    description: An PR created by automation action
+  - name: invalid
+    color: FF0000
+    description: PR is invalid and should be not merged

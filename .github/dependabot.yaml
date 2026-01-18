@@ -1,0 +1,36 @@
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+version: 2
+updates:
+- package-ecosystem: github-actions
+  directories:
+    - "/.github/workflows"
+    - "/.github/actions/**/"
+  schedule:
+    interval: monthly
+    time: "21:00"
+    day: "monday"
+  commit-message:
+    prefix: "[automated-commit] "
+  labels:
+    - "automated-pr"
+  groups:
+    github-actions:
+      patterns:
+      - "*"
+- package-ecosystem: uv
+  directory: "/"
+  schedule:
+    interval: weekly
+    time: "21:00"
+    day: "monday"
+  commit-message:
+    prefix: "[automated-commit] "
+  labels:
+    - "automated-pr"
+  groups:
+    pip:
+      patterns:
+      - "*"
+  allow:
+    - dependency-name: "*"
+      dependency-type: "all"

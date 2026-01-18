@@ -1,0 +1,51 @@
+# Dependapot doesn't support pre-commit yet,
+# so we use this GitHub Action to update pre-commit hooks periodically.
+# https://github.com/dependabot/dependabot-core/issues/1524
+
+name: Update pre-commit hooks
+
+on:
+  schedule:
+  # Run action at 21:00 UTC every month https://crontab.guru/#0_21_1_*_*
+  - cron: '0 21 1 * *'
+  # or trigger action manually
+  workflow_dispatch:
+
+jobs:
+  update-pre-commit-hooks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Update pre-commit
+        run: uv run pre-commit autoupdate
+
+      - name: Generate GitHub App token
+        # Action docs: https://github.com/actions/create-github-app-token
+        uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          app-id: ${{ vars.PHUONGPV_GITHUB_APP_ID }}
+          private-key: ${{ secrets.PHUONGPV_GITHUB_APP_PRIVATE_KEY }}
+
+      - name: Create Pull Request
+        # Action docs: https://github.com/marketplace/actions/create-pull-request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          commit-message: "[automated-commit] Update pre-commit hooks"
+          title: Update pre-commit hooks
+          body: Created by GitHub Actions
+          base: develop
+          labels: automated-pr
+          branch: feature/update-pre-commit-hooks
+          delete-branch: true

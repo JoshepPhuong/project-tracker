@@ -1,0 +1,289 @@
+[project]
+name = "project-tracker"
+version = "0.1.0"
+description = "A Django-based project management and tracking application."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    # Django packages
+    # Main framework
+    # https://www.djangoproject.com/
+    "django>=5.2.4",
+    # Different useful Django utils
+    # https://django-extensions.readthedocs.io/en/latest/
+    "django-extensions>=4.1",
+    # Filter querysets dynamically
+    # https://django-filter.readthedocs.io/en/stable/
+    "django-filter>=25.1",
+    # Case insensitive model fields
+    # https://github.com/voiio/django-citext
+    "django-citext>=1.0.2",
+    # Storage to AWS S3
+    # https://django-storages.readthedocs.io/en/latest/
+    "django-storages[boto3]>=1.14.6",
+    # Periodic tasks
+    # https://github.com/celery/django-celery-beat
+    "django-celery-beat>=2.8.1",
+    # Redis cache backend for Django
+    # https://github.com/jazzband/django-redis
+    "django-redis>=6.0.0",
+    # Django health check
+    # This project checks for various conditions and provides reports when anomalous behavior is detected.
+    # https://github.com/KristianOellegaard/django-health-check
+    "django-health-check>=3.20.0",
+    # DRF packages
+    # Django REST Framework
+    # https://www.django-rest-framework.org/
+    "djangorestframework>=3.16.0",
+    # Secure token-based auth for drf
+    # https://github.com/jazzband/django-rest-knox/
+    "django-rest-knox>=5.0.2",
+    # OpenApi auto specs generator
+    # https://drf-spectacular.readthedocs.io/en/latest/
+    "drf-spectacular>=0.28.0",
+    # Standardize DRF API error responses with drf-spectacular support
+    # https://drf-standardized-errors.readthedocs.io/en/latest/
+    "drf-standardized-errors[openapi]>=0.15.0",
+    # Other packages
+    # Decouple helps you to organize your settings so that you can change
+    # parameters without having to redeploy your app.
+    # https://github.com/HBNetwork/python-decouple
+    "python-decouple>=3.8",
+    # Low-level library for working with images
+    # https://pillow.readthedocs.io/en/stable/
+    "pillow>=11.3.0",
+    # HTML sanitizing library that escapes or strips markup and attributes
+    # https://github.com/matthiask/html-sanitizer
+    "html-sanitizer>=2.6.0",
+    # Needed for faster boto3 resolution
+    # https://github.com/boto/botocore/issues/2926
+    "urllib3>=2.5.0",
+    # Database abstraction layer
+    # https://pypi.org/project/psycopg-binary/
+    "psycopg[binary]>=3.2.9",
+    # Celery
+    # https://docs.celeryproject.org/en/stable/
+    "celery[redis]>=5.5.3",
+    # DateTime manipulation library
+    # https://arrow.readthedocs.io/en/stable/
+    # Locked because of gitlint
+    "arrow>=1.3.0",
+    # Prettified output in logging
+    # https://rich.readthedocs.io/en/latest/introduction.html
+    "rich>=14.1.0",
+    # Library for manage object permission
+    # https://github.com/dfunckt/django-rules
+    "rules>=3.5",
+    # Convert Markdown syntax into HTML
+    # https://github.com/lepture/mistune
+    # Performance: https://github.com/lepture/mistune?tab=readme-ov-file#benchmarks
+    "mistune>=3.1.3",
+    # Control the rendering behavior of Django_ forms
+    # https://django-crispy-forms.readthedocs.io/en/latest/
+    "django-crispy-forms>=2.4",
+    # Bootstrap 4 template pack for django-crispy-forms
+    # https://github.com/django-crispy-forms/crispy-bootstrap4
+    "crispy-bootstrap4>=2025.6",
+    # Fully featured HTTP client library for Python 3
+    # https://www.python-httpx.org/
+    "httpx>=0.28.1",
+]
+
+[dependency-groups]
+test = [
+    # Makes it easy to write small tests, yet scales to support complex functional testing
+    # https://github.com/pytest-dev/pytest/
+    "pytest>=8.4.1",
+    # Provides useful tools for testing Django apps
+    # Docs https://pytest-django.readthedocs.io/en/latest/
+    "pytest-django>=4.11.1",
+    # Allows you to use fixtures in @pytest.mark.parametrize.
+    # https://pypi.org/project/pytest-lazy-fixtures/
+    "pytest-lazy-fixtures>=1.3.2",
+    # To prettify pytest output
+    "pytest-sugar>=1.0.0",
+    # To run test in parallel
+    # Docs: https://pypi.org/project/pytest-xdist/
+    "pytest-xdist>=3.8.0",
+    # Fast creating of model instances. May be used in tests
+    # https://factoryboy.readthedocs.io/en/stable/
+    "factory-boy>=3.3.3",
+]
+dev = [
+    # Control CORS headers from within the app
+    # CORS is managed by Nginx in a production environment,
+    # but this package provides CORS for local development with a local frontend.
+    # https://pypi.org/project/django-cors-headers/
+    "django-cors-headers>=4.7.0",
+    # The Django Debug Toolbar is a configurable set of panels that display various debug information
+    # about the current request/response and when clicked, display more details about the panel's content.
+    # https://django-debug-toolbar.readthedocs.io/en/latest/
+    "django-debug-toolbar>=6.0.0",
+    # Provide management command to check if primary database is ready to accept connections
+    # https://github.com/painless-software/django-probes
+    "django-probes>=1.7.0",
+    # Mypy stubs for Django
+    # https://github.com/typeddjango/django-stubs
+    "django-stubs>=5.2.7",
+    # Mypy stubs for Django REST Framework
+    # https://github.com/typeddjango/djangorestframework-stubs
+    "djangorestframework-stubs>=3.16.5",
+    # Pythonic task management & command execution.
+    # https://github.com/pyinvoke/invoke
+    "invoke>=2.2.0",
+    # Exports functions to access the IPython debugger, which features tab completion, syntax highlighting, better tracebacks
+    # https://github.com/gotcha/ipdb
+    "ipdb>=0.13.13",
+    # Provides a rich toolkit to help you make the most of using Python interactively
+    # https://ipython.readthedocs.io/en/stable/
+    "ipython>=9.4.0",
+    # A framework for managing and maintaining multi-language pre-commit hooks.
+    # https://pre-commit.com/
+    "pre-commit>=4.2.0",
+    # Needed to run runserver_plus
+    # https://github.com/pallets/werkzeug
+    "werkzeug>=3.1.3",
+]
+
+[tool.pytest.ini_options]
+# --reuse-db
+#   allow saving DB tables between test sessions (like --keepdb)
+# --capture=no
+#   allow use of ipdb during tests
+# --ff
+#   run last failed tests first
+# --verbose
+#   Extend pytest output
+addopts = [
+    "--reuse-db",
+    "--ff",
+    "--capture=no",
+    "--verbose",
+]
+# skip all files inside following dirs
+norecursedirs = [
+    "_tmp",
+    "node_modules",
+    "src",
+]
+# set Django settings
+DJANGO_SETTINGS_MODULE = "config.settings.local"
+
+[tool.ruff]
+line-length = 79
+indent-width = 4
+target-version = "py311"
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = [
+  # https://docs.astral.sh/ruff/rules/unused-import
+  "F401",
+]
+"**/config/settings/**" = [
+  # https://docs.astral.sh/ruff/rules/undefined-local-with-import-star
+  "F403",
+  # https://docs.astral.sh/ruff/rules/undefined-local-with-import-star-usage
+  "F405",
+  # https://docs.astral.sh/ruff/rules/line-too-long
+  "E501",
+]
+"**/tests/*" = [
+  # https://docs.astral.sh/ruff/rules/assert
+  "S101",
+  # https://docs.astral.sh/ruff/rules/hardcoded-password-func-arg
+  "S106",
+  # https://docs.astral.sh/ruff/rules/suspicious-non-cryptographic-random-usage
+  "S311",
+]
+"**/test_*" = [
+  # https://docs.astral.sh/ruff/rules/missing-return-type-undocumented-public-function
+  "ANN201",
+  # https://docs.astral.sh/ruff/rules/assignment-in-assert/
+  "RUF018",
+]
+"**/migrations/*" = [
+  # https://docs.astral.sh/ruff/rules/undocumented-public-class
+  "D101",
+  # https://docs.astral.sh/ruff/rules/line-too-long
+  "E501",
+  # https://docs.astral.sh/ruff/rules/non-lowercase-variable-in-function
+  "N806",
+]
+"**/views**" = [
+  # https://docs.astral.sh/ruff/rules/ANN201
+  "ANN001",
+  # https://docs.astral.sh/ruff/rules/ANN201
+  "ANN201",
+]
+"**/admin**" = [
+  # https://docs.astral.sh/ruff/rules/missing-type-function-argument
+  "ANN001",
+  # https://docs.astral.sh/ruff/rules/missing-return-type-undocumented-public-function
+  "ANN201",
+]
+"**/api**" = [
+  # https://docs.astral.sh/ruff/rules/missing-type-function-argument
+  "ANN001",
+  # https://docs.astral.sh/ruff/rules/missing-return-type-undocumented-public-function
+  "ANN201",
+  # https://docs.astral.sh/ruff/rules/missing-return-type-private-function
+  "ANN202",
+]
+"**/open_api**" = [
+  # https://docs.astral.sh/ruff/rules/missing-type-function-argument
+  "ANN001",
+  # https://docs.astral.sh/ruff/rules/missing-return-type-undocumented-public-function
+  "ANN201",
+]
+"tasks.py" = [
+  # https://docs.astral.sh/ruff/rules/hardcoded-password-func-arg
+  "S106",
+]
+"**/apps.py" = [
+  # https://docs.astral.sh/ruff/rules/undocumented-public-method
+  "D102",
+]
+
+[tool.ruff.lint.isort]
+force-wrap-aliases = true
+split-on-trailing-comma = true
+section-order = [
+  "future",
+  "standard-library",
+  "django",
+  "drf",
+  "third-party",
+  "first-party",
+  "apps",
+  "local-folder",
+]
+
+[tool.ruff.lint.isort.sections]
+django = ["django"]
+drf = ["rest_framework"]
+apps = ["apps"]
+
+[tool.ruff.lint.flake8-pytest-style]
+fixture-parentheses = false
+parametrize-names-type = "list"
+parametrize-values-type = "list"
+parametrize-values-row-type = "list"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+exclude = [
+  # Disabling formatting because we don't need format one item tuple as one line
+  "**/admin*",
+  "**/views*",
+  "**/migrations/*",
+]
+
+# https://docformatter.readthedocs.io/en/latest/configuration.html#
+[tool.docformatter]
+wrap-descriptions=0
+in-place=true
+blank=true
+black=true

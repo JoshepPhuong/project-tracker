@@ -1,0 +1,32 @@
+{
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.pytest_cache": true,
+    "**/.mypy_cache": true,
+    "**/.ruff_cache": true
+  },
+  "editor.rulers": [
+    79
+  ],
+  "editor.bracketPairColorization.enabled": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
+  "[python]": {
+    "editor.formatOnSave": false,
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "sqltools.connections": [
+      {
+        "previewLimit": 50,
+        "server": "postgres",
+        "port": 5432,
+        "driver": "PostgreSQL",
+        "database": "project-tracker-dev",
+        "username": "project-tracker-user",
+        "password": "manager",
+        "name": "project-tracker-dev"
+      }
+    ]
+}
