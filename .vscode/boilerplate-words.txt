@@ -10,6 +10,7 @@ autoupdate
 autouse
 axllent
 Backported
+binutils
 boilerpalte
 boto
 Browsable
@@ -67,6 +68,7 @@ lazyfixture
 levelname
 lewagon
 libnss
+libproj
 livez
 LOCALFOLDER
 Localstack

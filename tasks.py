@@ -3,9 +3,11 @@ import invoke
 import invocations
 
 ns = invoke.Collection(
+    invocations.ci,
     invocations.db,
     invocations.django,
     invocations.docker,
+    invocations.github_actions,
     invocations.pre_commit,
     invocations.project,
     invocations.python,
