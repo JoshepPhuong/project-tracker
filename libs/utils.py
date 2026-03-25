@@ -34,7 +34,7 @@ def get_changelog_html(changelog_name: str) -> str:
     if not changelog_path.exists():
         return ""  # pragma: no cover
 
-    with pathlib.Path(changelog_path, encoding="UTF-8").open() as file:
+    with pathlib.Path(changelog_path).open(encoding="UTF-8") as file:
         changelog = file.read()
 
     markdown = mistune.create_markdown(renderer=ChangelogRenderer())
