@@ -1,5 +1,8 @@
+from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
+from health_check.views import HealthCheckView
+from redis.asyncio import Redis as RedisClient
 
 from libs.health_checks import liveness_check
 
@@ -17,9 +20,21 @@ urlpatterns = [
     # Custom checks at lib/health_checks
     path(
         "healthz/",
-        include(
-            "health_check.urls",
-            namespace="healthz",
+        HealthCheckView.as_view(
+            checks=[
+                "health_check.Cache",
+                "health_check.Database",
+                "health_check.Mail",
+                "health_check.Storage",
+                (
+                    "health_check.contrib.redis.Redis",
+                    {
+                        "client_factory": lambda: RedisClient.from_url(
+                            settings.REDIS_URL,
+                        ),
+                    },
+                ),
+            ],
         ),
         name="healthz",
     ),
