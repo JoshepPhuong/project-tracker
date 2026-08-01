@@ -4,8 +4,8 @@ from django.conf import settings
 from django.test.client import Client
 from django.urls import reverse
 
-from apps.users.models import User
 from apps.users.factories.user import DEFAULT_PASSWORD
+from apps.users.models import User
 
 
 def test_get_login_view(unauthenticated_client: Client):

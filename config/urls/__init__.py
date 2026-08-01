@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
+
 from health_check.views import HealthCheckView
 from redis.asyncio import Redis as RedisClient
 

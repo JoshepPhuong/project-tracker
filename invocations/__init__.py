@@ -8,7 +8,7 @@ from . import (
     pre_commit,
     printing,
     project,
-    python,
     pytest,
+    python,
     system,
 )

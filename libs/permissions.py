@@ -13,6 +13,6 @@ def can_access_debug_tools(user: User) -> bool:
 class HasAccessToDebugTools(BasePermission):
     """Permission for accessing debug tools."""
 
-    def has_permission(self, request, view) -> bool:  # noqa: ANN001
+    def has_permission(self, request, view) -> bool:
         """Check if the requesting user has access to debug tools."""
         return can_access_debug_tools(request.user)  # pragma: no cover

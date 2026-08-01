@@ -10,7 +10,7 @@ class BaseAdmin(
     save_on_top = True
     list_per_page = 25
     # Fields that should be enabled only on creation
-    create_only_fields = tuple()
+    create_only_fields = ()
 
     def get_fieldsets(self, request, obj=None):
         """Add created and modified to fieldsets."""

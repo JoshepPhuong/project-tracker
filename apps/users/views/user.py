@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.views.generic import CreateView, UpdateView
 from django.urls import reverse_lazy
+from django.views.generic import CreateView, UpdateView
 
 from apps.core.mixins import AppStatsMixin
 from apps.users.forms.user import UserRegisterForm, UserUpdateForm

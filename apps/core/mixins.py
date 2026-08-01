@@ -1,7 +1,8 @@
+from typing import Any
+
 from django.conf import settings
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
-from typing import Any
 
 
 class AppStatsMixin:
@@ -14,9 +15,9 @@ class AppStatsMixin:
             "swagger_api_ui": "open_api:swagger",
             "redoc_api_ui": "open_api:redoc",
         }
-        for key in open_api_ui_urls:
+        for key, value in open_api_ui_urls.items():
             try:
-                url = reverse(open_api_ui_urls[key])
+                url = reverse(value)
             except NoReverseMatch:
                 url = None
             open_api_ui_urls[key] = url

@@ -102,7 +102,7 @@ class DjangoSettings:
     """Settings for django module."""
 
     runserver_command: str = "runserver_plus"
-    runserver_host: str = "0.0.0.0"  # noqa: S104
+    runserver_host: str = "0.0.0.0"
     runserver_port: str = "8000"
     runserver_params: str = ""
     runserver_docker_params: str = "--rm --service-ports"

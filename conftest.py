@@ -41,12 +41,12 @@ def pytest_configure() -> None:
 
 
 @pytest.fixture(scope="session", autouse=True)
-def django_db_setup(django_db_setup) -> None:  # noqa: ANN001
+def django_db_setup(django_db_setup) -> None:
     """Set up test db for testing."""
 
 
 @pytest.fixture(autouse=True)
-def _enable_db_access_for_all_tests(django_db_setup, db) -> None:  # noqa: ANN001
+def _enable_db_access_for_all_tests(django_db_setup, db) -> None:
     """Enable access to DB for all tests."""
 
 

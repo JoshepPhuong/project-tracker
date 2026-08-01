@@ -9,8 +9,7 @@ import citext
 
 from apps.core.models import BaseModel
 
-from .. import constants
-from .. import managers
+from .. import constants, managers
 
 
 class User(
