@@ -30,7 +30,7 @@ dependencies = [
     # Django health check
     # This project checks for various conditions and provides reports when anomalous behavior is detected.
     # https://github.com/KristianOellegaard/django-health-check
-    "django-health-check>=3.20.0",
+    "django-health-check[celery,redis]>=4.0.0",
     # DRF packages
     # Django REST Framework
     # https://www.django-rest-framework.org/
