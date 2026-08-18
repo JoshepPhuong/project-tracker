@@ -1,5 +1,6 @@
 import dataclasses
 import platform
+from typing import Any
 
 import django
 from django.conf import settings
@@ -56,17 +57,17 @@ class IndexView(AppStatsMixin, TemplateView):
 
     template_name = "index.html"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         """Load changelog data from files."""
         context = super().get_context_data(**kwargs)
-        open_api_ui_urls = {
+        open_api_ui_urls: dict[str, str | None] = {
             "swagger_api_ui": "open_api:swagger",
             "redoc_api_ui": "open_api:redoc",
         }
 
-        for key in open_api_ui_urls:
+        for key, value in open_api_ui_urls.items():
             try:
-                url = reverse(open_api_ui_urls[key])
+                url = reverse(value)
             except NoReverseMatch:
                 url = None
             open_api_ui_urls[key] = url

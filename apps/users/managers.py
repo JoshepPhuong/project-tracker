@@ -1,7 +1,6 @@
 from django.contrib.auth.models import UserManager as DjangoUserManager
 
-from . import constants
-from . import querysets
+from . import constants, querysets
 
 
 class UserManager(DjangoUserManager.from_queryset(querysets.UserQuerySet)):

@@ -8,7 +8,7 @@ DEBUG = decouple.config("DEBUG", default=False, cast=bool)
 
 # Enable restriction to access debug tools like swagger, django debug toolbars,
 # Admin page for prod environment
-RESTRICT_DEBUG_ACCESS = True if not DEBUG else False
+RESTRICT_DEBUG_ACCESS = bool(DEBUG)
 
 ENVIRONMENT = decouple.config("ENVIRONMENT")
 

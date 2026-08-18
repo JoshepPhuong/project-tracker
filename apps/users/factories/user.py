@@ -6,7 +6,7 @@ import factory
 
 from .. import models
 
-DEFAULT_PASSWORD = "Test111!"  # noqa: S105
+DEFAULT_PASSWORD = "Test111!"
 
 
 class UserFactory(factory.django.DjangoModelFactory):

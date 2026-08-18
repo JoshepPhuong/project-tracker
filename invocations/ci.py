@@ -1,6 +1,6 @@
 import invoke
 
-from . import project, printing, docker, system, github_actions
+from . import docker, github_actions, printing, project, system
 
 
 @invoke.task

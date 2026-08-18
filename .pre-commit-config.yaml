@@ -15,14 +15,14 @@ repos:
       - id: detect-private-key
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.4
+    rev: v0.16.1
     hooks:
       - id: ruff
         args: [ --fix ]
       - id: ruff-format
 
   - repo: https://github.com/streetsidesoftware/cspell-cli
-    rev: v9.7.0
+    rev: v10.0.1
     hooks:
       - id: cspell
 
@@ -44,7 +44,7 @@ repos:
         bash -c 'gitlint --commits "${BASE_BRANCH}..HEAD" -c general.ignore=UC1 -c ignore-by-title.regex="^\[automated-commit]"'
 
   - repo: https://github.com/rtts/djhtml
-    rev: 3.0.10
+    rev: 3.0.11
     hooks:
       - id: djhtml
         args: [ "--tabwidth=2" ]
@@ -54,12 +54,12 @@ repos:
         args: [ "--tabwidth=2" ]
 
   - repo: https://github.com/pycqa/docformatter
-    rev: "v1.7.7"
+    rev: "v1.7.8"
     hooks:
       - id: docformatter
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.47.0
+    rev: v0.49.1
     hooks:
       - id: markdownlint
         args: [

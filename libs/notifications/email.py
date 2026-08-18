@@ -31,19 +31,19 @@ class EmailNotification:
 
     subject = ""
     from_email = ""
-    recipient_list = tuple()
+    recipient_list = ()
     template = ""
     plain_template = ""
-    files = tuple()
+    files = ()
 
     def __init__(
         self,
         subject: str = "",
         from_email: str = "",
-        recipient_list: typing.Sequence[str] = tuple(),
+        recipient_list: typing.Sequence[str] = (),
         template: str = "",
         plain_template: str = "",
-        files: typing.Sequence[EmailFile] = tuple(),
+        files: typing.Sequence[EmailFile] = (),
         **template_context,
     ) -> None:
         """Initialize EmailNotification.

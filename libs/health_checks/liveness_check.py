@@ -3,7 +3,7 @@ from django.http import HttpResponse
 
 
 @transaction.non_atomic_requests
-def liveness_check(request) -> HttpResponse:  # noqa: ANN001
+def liveness_check(request) -> HttpResponse:
     """Check if app is alive.
 
     We disable atomic requests, because if you have ATOMIC_REQUEST=True django
