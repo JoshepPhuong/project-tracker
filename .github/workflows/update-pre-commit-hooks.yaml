@@ -31,7 +31,7 @@ jobs:
 
       - name: Generate GitHub App token
         # Action docs: https://github.com/actions/create-github-app-token
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@v3
         id: app-token
         with:
           app-id: ${{ vars.PHUONGPV_GITHUB_APP_ID }}
