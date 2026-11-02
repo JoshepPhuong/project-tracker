@@ -15,14 +15,14 @@ repos:
       - id: detect-private-key
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.16.5
+    rev: v0.17.3
     hooks:
       - id: ruff
         args: [ --fix ]
       - id: ruff-format
 
   - repo: https://github.com/streetsidesoftware/cspell-cli
-    rev: v10.1.0
+    rev: v10.4.0
     hooks:
       - id: cspell
 
@@ -59,7 +59,7 @@ repos:
       - id: docformatter
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.49.1
+    rev: v0.50.0
     hooks:
       - id: markdownlint
         args: [
